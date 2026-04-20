@@ -1,0 +1,25 @@
+{
+  "default_topics": ["Iran", "Mỹ", "Việt Nam"],
+  "sources": [
+    {"name": "VnExpress Thế giới", "url": "https://vnexpress.net/rss/the-gioi.rss"},
+    {"name": "VnExpress Chính trị", "url": "https://vnexpress.net/rss/chinh-tri.rss"},
+    {"name": "Tuổi Trẻ Thế giới", "url": "https://tuoitre.vn/rss/the-gioi.rss"},
+    {"name": "Dân Trí Thế giới", "url": "https://dantri.com.vn/rss/the-gioi.rss"},
+    {"name": "Thanh Niên Thế giới", "url": "https://thanhnien.vn/rss/the-gioi.rss"},
+    {"name": "BBC World", "url": "http://feeds.bbci.co.uk/news/world/rss.xml"},
+    {"name": "Reuters World", "url": "https://feeds.reuters.com/reuters/worldNews"},
+    {"name": "VnExpress Kinh doanh", "url": "https://vnexpress.net/rss/kinh-doanh.rss"},
+    {"name": "VnExpress Công nghệ", "url": "https://vnexpress.net/rss/so-hoa.rss"},
+    {"name": "Tuổi Trẻ Kinh doanh", "url": "https://tuoitre.vn/rss/kinh-doanh.rss"},
+    {"name": "Tuổi Trẻ Công nghệ", "url": "https://tuoitre.vn/rss/cong-nghe.rss"},
+    {"name": "Thanh Niên Kinh tế", "url": "https://thanhnien.vn/rss/kinh-te.rss"},
+    {"name": "Thanh Niên Công nghệ", "url": "https://thanhnien.vn/rss/cong-nghe.rss"},
+    {"name": "Dân Trí Kinh doanh", "url": "https://dantri.com.vn/rss/kinh-doanh.rss"},
+    {"name": "BBC Business", "url": "http://feeds.bbci.co.uk/news/business/rss.xml"},
+    {"name": "BBC Technology", "url": "http://feeds.bbci.co.uk/news/technology/rss.xml"}
+  ],
+  "output_dir": "output",
+  "max_articles_per_topic": 20,
+  "open_browser": true,
+  "notify": true
+}
