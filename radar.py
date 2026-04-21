@@ -182,7 +182,17 @@ SOURCE_COLORS = {
     "Thanh Niên": "#2e7d32",
     "BBC": "#b71c1c",
     "Reuters": "#ff6600",
-    "CafeF": "#e65100",
+    "Genk": "#e91e63",
+    "Tinhte": "#0288d1",
+    "TechCrunch": "#0a9e01",
+    "The Verge": "#e8503a",
+    "Ars Technica": "#ff4e00",
+    "Wired": "#000000",
+    "MIT Tech": "#a31f34",
+    "Hacker News": "#ff6600",
+    "The Register": "#d32f2f",
+    "ZDNet": "#d32f2f",
+    "Engadget": "#5200ff",
 }
 
 def get_source_color(source_name: str) -> str:
