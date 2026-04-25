@@ -1,5 +1,5 @@
 {
-  "default_topics": ["Iran", "Mỹ", "Việt Nam"],
+  "default_topics": ["Iran", "Mỹ", "Việt Nam", "Kinh tế", "AI", "Công nghệ"],
   "sources": [
     {"name": "VnExpress Thế giới", "url": "https://vnexpress.net/rss/the-gioi.rss"},
     {"name": "VnExpress Chính trị", "url": "https://vnexpress.net/rss/chinh-tri.rss"},

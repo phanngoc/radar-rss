@@ -698,11 +698,16 @@ def build_html(topics_data: dict[str, list[dict]], sources: list[dict], default_
     const STORAGE_KEY = 'radar_selected_topics';
     const TAB_KEY = 'radar_tab';
 
+    const DEFAULTS_VERSION_KEY = 'radar_defaults_version';
+    const DEFAULTS_VERSION = JSON.stringify(DEFAULT_TOPICS);
+
     function getSelectedTopics() {{
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {{
+      const savedVersion = localStorage.getItem(DEFAULTS_VERSION_KEY);
+      if (stored && savedVersion === DEFAULTS_VERSION) {{
         try {{ return JSON.parse(stored); }} catch(e) {{}}
       }}
+      localStorage.setItem(DEFAULTS_VERSION_KEY, DEFAULTS_VERSION);
       return [...DEFAULT_TOPICS];
     }}
 
