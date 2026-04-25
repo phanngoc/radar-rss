@@ -204,19 +204,34 @@ def get_source_color(source_name: str) -> str:
             return color
     return "#555"
 
-def format_date(date_str: str) -> str:
-    for fmt in [
-        "%a, %d %b %Y %H:%M:%S %z",
-        "%a, %d %b %Y %H:%M:%S %Z",
-        "%Y-%m-%dT%H:%M:%SZ",
-        "%Y-%m-%dT%H:%M:%S%z",
-    ]:
+DATE_FORMATS = [
+    "%a, %d %b %Y %H:%M:%S %z",
+    "%a, %d %b %Y %H:%M:%S %Z",
+    "%Y-%m-%dT%H:%M:%SZ",
+    "%Y-%m-%dT%H:%M:%S%z",
+]
+
+def parse_date(date_str: str) -> datetime | None:
+    for fmt in DATE_FORMATS:
         try:
-            dt = datetime.strptime(date_str.strip(), fmt)
-            return dt.strftime("%d/%m %H:%M")
+            return datetime.strptime(date_str.strip(), fmt)
         except ValueError:
             continue
+    return None
+
+def format_date(date_str: str) -> str:
+    dt = parse_date(date_str)
+    if dt:
+        return dt.strftime("%d/%m %H:%M")
     return date_str[:16] if date_str else ""
+
+def sort_articles_by_date(articles: list[dict]) -> list[dict]:
+    def sort_key(art):
+        dt = parse_date(art.get("date", ""))
+        if dt is None:
+            return 0
+        return dt.timestamp() if dt.tzinfo else dt.replace(tzinfo=None).timestamp()
+    return sorted(articles, key=sort_key, reverse=True)
 
 def build_article_card(art: dict) -> str:
     title = html_lib.escape(art["title"])
@@ -252,12 +267,15 @@ def build_html(topics_data: dict[str, list[dict]], sources: list[dict], default_
     )
     default_topics_json = json.dumps(default_topics, ensure_ascii=False)
 
+    max_articles = 50
+
     # Generate ALL topic sections (hidden by default, JS controls visibility)
     sections_html = ""
     for topic, arts in topics_data.items():
+        arts = sort_articles_by_date(arts)
         icon = TOPIC_ICONS.get(topic, "🌐")
         topic_id = html_lib.escape(topic)
-        cards = "".join(build_article_card(a) for a in arts[:20])
+        cards = "".join(build_article_card(a) for a in arts[:max_articles])
         if not cards:
             cards = '<div class="empty-state"><div class="icon">🔍</div><p>Không tìm thấy bài viết phù hợp</p></div>'
         sections_html += f"""
