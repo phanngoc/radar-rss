@@ -695,24 +695,30 @@ def build_html(topics_data: dict[str, list[dict]], sources: list[dict], default_
   <script>
     const TOPIC_META = {topic_meta_json};
     const DEFAULT_TOPICS = {default_topics_json};
-    const STORAGE_KEY = 'radar_selected_topics';
     const TAB_KEY = 'radar_tab';
+    const ADDED_KEY = 'radar_added';
+    const REMOVED_KEY = 'radar_removed';
 
-    const DEFAULTS_VERSION_KEY = 'radar_defaults_version';
-    const DEFAULTS_VERSION = JSON.stringify(DEFAULT_TOPICS);
+    let _selectedTopics = null;
 
     function getSelectedTopics() {{
-      const stored = localStorage.getItem(STORAGE_KEY);
-      const savedVersion = localStorage.getItem(DEFAULTS_VERSION_KEY);
-      if (stored && savedVersion === DEFAULTS_VERSION) {{
-        try {{ return JSON.parse(stored); }} catch(e) {{}}
-      }}
-      localStorage.setItem(DEFAULTS_VERSION_KEY, DEFAULTS_VERSION);
-      return [...DEFAULT_TOPICS];
+      if (_selectedTopics) return _selectedTopics;
+      let added = [], removed = [];
+      try {{ added = JSON.parse(localStorage.getItem(ADDED_KEY) || '[]'); }} catch(e) {{}}
+      try {{ removed = JSON.parse(localStorage.getItem(REMOVED_KEY) || '[]'); }} catch(e) {{}}
+      const topics = [...DEFAULT_TOPICS];
+      removed.forEach(t => {{ const i = topics.indexOf(t); if (i >= 0) topics.splice(i, 1); }});
+      added.forEach(t => {{ if (!topics.includes(t) && TOPIC_META[t]) topics.push(t); }});
+      _selectedTopics = topics;
+      return _selectedTopics;
     }}
 
     function saveSelectedTopics(topics) {{
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(topics));
+      _selectedTopics = topics;
+      const added = topics.filter(t => !DEFAULT_TOPICS.includes(t));
+      const removed = DEFAULT_TOPICS.filter(t => !topics.includes(t));
+      localStorage.setItem(ADDED_KEY, JSON.stringify(added));
+      localStorage.setItem(REMOVED_KEY, JSON.stringify(removed));
     }}
 
     function renderTabs() {{
