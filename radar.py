@@ -105,27 +105,29 @@ def fetch_all(sources: list[dict]) -> list[dict]:
 TOPIC_KEYWORDS = {
     # Chính trị quốc tế
     "Iran": ["iran", "tehran", "tehران", "khamenei", "pezeshkian", "hormuz", "persian"],
-    "Mỹ": ["mỹ", "hoa kỳ", "trump", "white house", "washington", "biden", "america", "american", "pentagon"],
+    "Mỹ": ["mỹ", "hoa kỳ", "trump", "white house", "washington", "biden", "america", "american", "pentagon", "congress", "senate", "republican", "democrat"],
     "Việt Nam": ["việt nam", "vietnam", "hà nội", "hanoi", "bộ chính trị", "đảng cộng sản", "chính phủ việt"],
-    "Trung Quốc": ["trung quốc", "china", "beijing", "bắc kinh", "tập cận bình", "xi jinping", "cpc", "pla"],
-    "Nga": ["russia", "putin", "moscow", "kremlin", "zelensky", "ukraine"],
-    "Israel": ["israel", "gaza", "hamas", "tel aviv", "netanyahu", "palestine", "west bank"],
+    "Trung Quốc": ["trung quốc", "china", "chinese", "beijing", "bắc kinh", "tập cận bình", "xi jinping", "cpc", "pla", "huawei", "tencent", "alibaba", "baidu"],
+    "Nga": ["russia", "russian", "putin", "moscow", "kremlin", "zelensky", "ukraine", "ukrainian"],
+    "Israel": ["israel", "israeli", "gaza", "hamas", "tel aviv", "netanyahu", "palestine", "palestinian", "west bank", "hezbollah"],
     # Kinh tế & Tài chính
-    "Kinh tế": ["kinh tế", "economy", "economic", "gdp", "lạm phát", "inflation", "tăng trưởng", "suy thoái", "recession", "thương mại", "xuất khẩu", "nhập khẩu", "export", "import", "ngân hàng trung ương", "central bank", "lãi suất", "interest rate"],
-    "Chứng khoán": ["chứng khoán", "stock", "cổ phiếu", "vn-index", "vnindex", "vn30", "nasdaq", "s&p 500", "dow jones", "wall street", "sàn giao dịch", "exchange", "ipo", "niêm yết", "thị trường chứng khoán", "bull market", "bear market", "securities"],
-    "Đầu tư": ["đầu tư", "invest", "investment", "fdi", "venture capital", "startup", "quỹ đầu tư", "fund", "portfolio", "tài sản", "asset", "bất động sản", "real estate", "trái phiếu", "bond", "etf", "warren buffett"],
-    "Tiền tệ": ["tiền tệ", "currency", "tỷ giá", "exchange rate", "forex", "usd", "đô la", "dollar", "euro", "nhân dân tệ", "yuan", "yen", "crypto", "bitcoin", "btc", "ethereum", "tiền điện tử", "cryptocurrency", "blockchain", "stablecoin"],
+    "Kinh tế": ["kinh tế", "economy", "economic", "gdp", "lạm phát", "inflation", "tăng trưởng", "suy thoái", "recession", "thương mại", "xuất khẩu", "nhập khẩu", "export", "import", "ngân hàng trung ương", "central bank", "lãi suất", "interest rate", "tariff", "tax cut", "fiscal", "monetary policy", "jobs report", "unemployment", "consumer spending", "retail sales"],
+    "Chứng khoán": ["chứng khoán", "stock", "cổ phiếu", "vn-index", "vnindex", "vn30", "nasdaq", "s&p 500", "dow jones", "wall street", "sàn giao dịch", "ipo", "niêm yết", "thị trường chứng khoán", "bull market", "bear market", "securities", "share price", "market cap", "earnings", "quarterly results"],
+    "Đầu tư": ["đầu tư", "invest", "investment", "fdi", "venture capital", "startup", "quỹ đầu tư", "fund", "portfolio", "tài sản", "asset", "bất động sản", "real estate", "trái phiếu", "bond", "etf", "warren buffett", "private equity", "hedge fund", "valuation", "funding round", "series a", "series b"],
+    "Tiền tệ": ["tiền tệ", "currency", "tỷ giá", "exchange rate", "forex", "usd", "đô la", "dollar", "euro", "nhân dân tệ", "yuan", "yen", "crypto", "bitcoin", "btc", "ethereum", "tiền điện tử", "cryptocurrency", "blockchain", "stablecoin", "defi", "web3", "token"],
     "Vàng": ["vàng", "gold", "sjc", "giá vàng", "gold price", "bullion", "vàng miếng", "vàng nhẫn", "kim loại quý", "precious metal", "ounce", "troy"],
-    "Kim loại & Hàng hóa": ["kim loại", "metal", "bạc", "silver", "đồng", "copper", "nhôm", "aluminum", "thép", "steel", "quặng sắt", "iron ore", "hàng hóa", "commodity", "dầu thô", "crude oil", "opec", "xăng", "petrol", "khí đốt", "natural gas", "than", "coal", "nông sản", "lúa mì", "wheat", "đậu nành", "soybean", "ngô", "corn", "cà phê", "coffee", "cao su", "rubber"],
+    "Kim loại & Hàng hóa": ["kim loại", "metal", "bạc", "silver", "nhôm", "aluminum", "thép", "steel", "quặng sắt", "iron ore", "hàng hóa", "commodity", "dầu thô", "crude oil", "opec", "xăng", "petrol", "khí đốt", "natural gas", "than", "coal", "nông sản", "lúa mì", "wheat", "đậu nành", "soybean", "cà phê", "coffee", "cao su", "rubber"],
     # Công nghệ
-    "AI": ["artificial intelligence", "trí tuệ nhân tạo", "machine learning", "học máy", "deep learning", "chatgpt", "openai", "google ai", "gemini ai", "anthropic", "neural network", "mạng nơ-ron", "generative ai", "ai chip", "nvidia", "copilot", "midjourney", "stable diffusion", "mô hình ngôn ngữ"],
+    "AI": ["artificial intelligence", "trí tuệ nhân tạo", "machine learning", "học máy", "deep learning", "chatgpt", "openai", "google ai", "gemini ai", "anthropic", "neural network", "mạng nơ-ron", "generative ai", "ai chip", "nvidia", "copilot", "midjourney", "stable diffusion", "mô hình ngôn ngữ", "meta ai", "claude ", "llama model"],
+    "Công nghệ": ["công nghệ", "technology", "tech company", "software", "hardware", "smartphone", "iphone", "android", "samsung", "apple", "google", "microsoft", "meta ", "amazon", "tesla", "spacex", "cybersecurity", "data breach", "hacking", "privacy", "cloud computing", "semiconductor", "chip", "5g", "6g", "quantum computing", "điện thoại", "laptop", "tablet", "internet", "app ", "streaming", "gaming", "xbox", "playstation", "nintendo", "social media", "tiktok", "instagram", "facebook", "youtube", "twitter", "elon musk", "mark zuckerberg", "tim cook", "satya nadella", "sundar pichai"],
 }
 
 TOPIC_REGEX_KEYWORDS = {
-    "AI": [r"\bgpt\b", r"\bai\b(?=[\s\-](?:gen|chip|model|agent|tool|system|powered|based|driven|first|native))"],
+    "AI": [r"\bgpt\b", r"\bai\b(?=[\s\-](?:gen|chip|model|agent|tool|system|powered|based|driven|first|native|photo|image|job|risk|concern|fear|boom|spend|cut|lead|start|company|firm|race|safety|regulation|search|assistant|feature|update|lab|research|training|billion|million|worker|replace|threat|ethic|bias|detect|fake|deep))"],
     "Mỹ": [r"\bus\b", r"\busa\b"],
     "Nga": [r"\bnga\b"],
     "Kinh tế": [r"\bfed\b", r"\btrade\b", r"\bgrowth\b"],
+    "Công nghệ": [r"\btech\b", r"\bapp\b", r"\bits\b"],
 }
 
 ALL_TOPICS = list(TOPIC_KEYWORDS.keys())
@@ -173,6 +175,7 @@ TOPIC_ICONS = {
     "Vàng": "🥇",
     "Kim loại & Hàng hóa": "🛢️",
     "AI": "🤖",
+    "Công nghệ": "💻",
 }
 
 SOURCE_COLORS = {
