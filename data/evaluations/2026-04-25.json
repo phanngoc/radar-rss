@@ -1,0 +1,54 @@
+{
+  "date": "2026-04-25",
+  "filter_version": 1,
+  "total_articles": 1174,
+  "classified": 873,
+  "unclassified": 301,
+  "multi_match": 32,
+  "per_topic": {
+    "Iran": {
+      "matched": 142
+    },
+    "Mỹ": {
+      "matched": 236
+    },
+    "Việt Nam": {
+      "matched": 95
+    },
+    "Trung Quốc": {
+      "matched": 93
+    },
+    "Nga": {
+      "matched": 79
+    },
+    "Israel": {
+      "matched": 19
+    },
+    "Kinh tế": {
+      "matched": 95
+    },
+    "Chứng khoán": {
+      "matched": 41
+    },
+    "Đầu tư": {
+      "matched": 101
+    },
+    "Tiền tệ": {
+      "matched": 62
+    },
+    "Vàng": {
+      "matched": 45
+    },
+    "Kim loại & Hàng hóa": {
+      "matched": 74
+    },
+    "AI": {
+      "matched": 84
+    },
+    "Công nghệ": {
+      "matched": 289
+    }
+  },
+  "unclassified_rate": 0.2563884156729131,
+  "multi_match_rate": 0.027257240204429302
+}

@@ -1,0 +1,19 @@
+{
+  "id": "2026-04-25T10-37-53",
+  "created_at": "2026-04-25T10:40:00",
+  "status": "applied",
+  "base_version": 1,
+  "changes": [
+    {
+      "action": "add_keyword",
+      "topic": "AI",
+      "value": "deepseek",
+      "reasoning": "DeepSeek is a Chinese AI lab appearing in recent unclassified articles",
+      "evidence": [
+        "DeepSeek ra mat mo hinh moi",
+        "DeepSeek vs OpenAI"
+      ]
+    }
+  ],
+  "impact": {}
+}

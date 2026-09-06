@@ -130,9 +130,32 @@ TOPIC_REGEX_KEYWORDS = {
     "Công nghệ": [r"\btech\b", r"\bapp\b", r"\bits\b"],
 }
 
-ALL_TOPICS = list(TOPIC_KEYWORDS.keys())
-
 REGEX_ONLY_TOPICS = {"AI"}
+
+FILTERS_FILE = BASE_DIR / "data" / "filters.json"
+
+def load_filters():
+    """Load filters from data/filters.json if present, else use hardcoded defaults.
+
+    Returns (keywords_dict, regex_dict, regex_only_set, version).
+    """
+    if FILTERS_FILE.exists():
+        with open(FILTERS_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+        topics = data["topics"]
+        kw = {t: v["keywords"] for t, v in topics.items()}
+        rx = {t: v.get("regex_patterns", []) for t, v in topics.items() if v.get("regex_patterns")}
+        ro = {t for t, v in topics.items() if v.get("regex_only", False)}
+        return kw, rx, ro, data.get("version", 1)
+    return TOPIC_KEYWORDS, TOPIC_REGEX_KEYWORDS, REGEX_ONLY_TOPICS, 0
+
+# Override globals from filters.json (or use hardcoded defaults)
+_kw, _rx, _ro, FILTER_VERSION = load_filters()
+TOPIC_KEYWORDS = _kw
+TOPIC_REGEX_KEYWORDS = _rx
+REGEX_ONLY_TOPICS = _ro
+
+ALL_TOPICS = list(TOPIC_KEYWORDS.keys())
 
 def topic_matches(topic: str, article: dict) -> bool:
     text = (article["title"] + " " + article["desc"]).lower()
@@ -886,6 +909,13 @@ def main():
 
     articles = fetch_all(sources)
     print(f"\n✅ Tổng cộng {len(articles)} bài, đang lọc theo tất cả chủ đề...\n")
+
+    # Cache articles for agent reprocessing
+    cache_dir = BASE_DIR / "data" / "cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_file = cache_dir / f"{datetime.now().strftime('%Y-%m-%d')}.json"
+    with open(cache_file, "w", encoding="utf-8") as f:
+        json.dump(articles, f, ensure_ascii=False)
 
     topics_data = filter_by_topics(articles, ALL_TOPICS)
     for topic, arts in topics_data.items():
